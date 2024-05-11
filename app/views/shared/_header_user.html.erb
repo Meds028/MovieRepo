@@ -1,0 +1,37 @@
+<head>
+    <script>
+        $(document).ready(function() {
+            $('#search-nav-enter').keypress(function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault(); // Prevent form submission
+                    
+                    let term = $('#search-nav-enter').val();
+                    
+                    if (!term) {
+                        term = "_";
+                    }
+                    
+                    let baseUrl = '/browse/filter/all/all/0/latest/' + term + '?page=1';
+                    
+                    window.location.href = baseUrl;
+                }
+            });
+        });
+    </script>
+</head>
+<header>
+    <div class="logo">
+        <a href="<%= home_path %>"><img src="<%= asset_path('mylogo-white.png') %>" alts="logo"/></a>
+    </div>
+    <nav>
+        <form id="search-nav">
+            <span class="material-symbols-outlined">search</span>
+            <input type="text" name="search" placeholder="Search" id="search-nav-enter">
+        </form>
+        
+        <a href="<%= home_path %>">Home</a>
+        <a href="<%= filter_path(quality: 'all', genre: 'all', rating: 0, order_by: 'latest', term: '_', page: 1) %>">Browse Movies</a>
+        <a href="<%= bookmark_path %>">Bookmark</a>
+        <a href="<%= profile_path %>"><%= current_user.user_name %></a>
+    </nav>
+</header>

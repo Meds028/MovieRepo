@@ -1,0 +1,85 @@
+<head>
+    <title>Profile</title>
+</head>
+
+<% if current_user.present? %>
+    <%= render partial: "shared/header_user" %>
+<% else %>
+    <%= render partial: "shared/header" %>
+<% end %>
+
+<div id="main-container">
+    <main id="register-container">
+        
+        <% if flash[:alert].present? %>
+            <div class="alert alert-danger errors">
+                <% flash[:alert].each do |error| %>
+                    <p><%= error %></p>
+                <% end %>
+            </div>
+        <% end %>
+        <% if flash[:notice].present? %>
+            <div class="alert alert-success errors">
+                <p><%= flash[:notice] %></p>
+            </div>
+        <% end %>
+
+        <form action='<%= change_user_path %>' method='post'>
+            <div class="mb-3 row">
+                <label for="inputUsername" class="col-sm-3 col-form-label">Username</label>
+                <div class="col-sm-6 regiter-input-container">
+                    <input type="text" class="user-form" id="inputUsername" name="user[user_name]" placeholder="<%= @user_info.user_name %>">
+                </div>
+                <div class="col-sm-3 gap-2 login">
+                    <input class="btn btn-primary" type="submit" value="Save">
+                </div>
+            </div>
+        </form>
+
+        <form action='<%= change_email_path %>' method='post'>
+            <div class="mb-3 row">
+                <label for="inputEmail" class="col-sm-3 col-form-label">Email Address</label>
+                <div class="col-sm-6 regiter-input-container">
+                    <input type="text" class="user-form" id="inputEmail" name="user[email]" placeholder="<%= @user_info.email %>">
+                </div>
+                <div class="col-sm-3 gap-2 login">
+                    <input class="btn btn-primary" type="submit" value="Save">
+                </div>
+            </div>
+        </form>
+
+        <form action='<%= change_password_path %>' method='post'>
+            <div class="mb-3 row">
+                <label for="inputOldPassword" class="col-sm-3 col-form-label">Old Password</label>
+                <div class="col-sm-6 regiter-input-container">
+                    <input type="password" class="user-form" id="inputOldPassword" name="user[password]">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-3 col-form-label">New Password</label>
+                <div class="col-sm-6 regiter-input-container">
+                    <input type="password" class="user-form" id="inputPassword" name="user[new_password]">
+                </div>
+            </div>
+            
+            <div class="mb-3 row">
+                <label for="inputConfirmPassword" class="col-sm-3 col-form-label">Confirm Password</label>
+                <div class="col-sm-6 regiter-input-container">
+                    <input type="password" class="user-form" id="inputConfirmPassword" name="user[password_confirmation]">
+                </div>
+                <div class="col-sm-3 gap-2 login">
+                    <input class="btn btn-primary" type="submit" value="Save">
+                </div>
+            </div>
+        </form>
+        <div class="mb-3 row">
+            <div class="col-sm-9 gap-2 login"></div>
+            <div class="col-sm-3 gap-2">
+                <a class="btn btn-danger" href="<%= logout_path %>" role="button">Logout</a>
+            </div>
+        </div>
+    </main>
+</div>
+<%= render partial: "shared/footer" %>
+

@@ -1,0 +1,350 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+html{
+    height: 100%;
+    box-sizing: border-box;
+}
+body{
+    background-color: #171717;
+    position: relative;
+    margin: 0;
+    min-height: 100%;
+    box-sizing: inherit;
+    padding-bottom: 10rem;
+}
+
+header{
+    padding: 0.5rem 2rem;
+    background-color: #1D1D1D;
+}
+    header div.logo{
+        width: 49%;
+        display: inline-block;
+    }
+        header div.logo img{
+            width: 150px;
+        }
+    header nav{
+        width: 49%;
+        display: inline-block;
+        text-align: end;
+    }
+        header nav a{
+            text-decoration: none;
+            color: grey;
+            padding: 0 0.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        header nav a:hover{
+            color: white;
+            transition: 1s;
+        }
+            header nav form#search-nav{
+                display: inline-block;
+                border-radius: 20px;
+                border: 2px solid grey;
+                padding: 0.3rem
+            }
+            header nav form#search-nav span{
+                display: inline-block;
+                vertical-align: bottom;
+                color: grey;
+            }
+            header nav form#search-nav input{
+                outline: none;
+                border: none;
+                background: transparent;
+                color: grey;
+            }
+    div.modal-content{
+        border: 3px solid grey;
+        text-align: left;
+    }
+        div.modal-content div.modal-body div.error{
+            color: red;
+            text-align: center;
+        }
+        div.modal-content div.modal-body div.notice{
+            color: green;
+            text-align: center;
+        }
+        div.modal-content div.modal-footer input{
+            width: 100%;
+        }
+
+footer{
+    background-color: #1D1D1D;
+    text-align: center;
+    color: grey;
+    padding: 1rem;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+    footer a img{
+        height: 40px;
+        border-radius: 0.2rem;
+    }
+    footer a img:hover{
+        background-color: wheat;
+        transition: 1s;
+    }
+    footer a p{
+        margin: 0;
+    }
+/* REGISTER-LOGIN */
+main#register-container{
+    color: white;
+    width: 50%;
+    margin: 100px auto 14% auto;
+}
+    main#register-container form a{
+        text-align: start;
+    }
+    main#register-container div.regiter-input-container{
+        display: inline-block;
+        border-radius: 0.6rem;
+        border: 2px solid grey;
+        padding: 0.3rem 1rem;
+    }
+        main#register-container input.user-form{
+            outline: none;
+            border: none;
+            background: transparent;
+            color: grey;
+            width: 100%;
+        }
+/* HOME */
+div#main-container{
+    width: 90%;
+    margin: auto;
+    text-align: center;
+}
+    article{
+        color: white;
+        margin: 30px 0 50px 0;
+    }
+    div.card-header{
+        color: white;
+        text-align: start;
+        width: 90%;
+        margin: 100px auto 0 auto;
+    }
+        div.card-header h4{
+            width: 49%;
+            display: inline-block;
+            margin: 0;
+        }
+        div.card-header a h5{
+            width: 49%;
+            display: inline-block;
+            text-align: end;
+            margin: 0;
+            color: white;
+        }
+    div#main-container div.card-container{
+        width: 17%;
+        display: inline-block;
+        margin: 2rem;
+        color: white;
+        background-color: #171717;
+        text-align: start;
+    }
+        div#main-container div.card-container img{
+            width: 100%;
+            border: 4px solid grey;
+            border-radius: 5px;
+            object-fit: contain;
+        }
+        div#main-container div.card-container img:hover{
+            border: 4px solid white;
+            transition: 0.5s;
+        }
+        div#main-container div.card-container a{
+            text-decoration: none;
+            color: white
+        }
+            div#main-container div.card-container a h5{
+                margin: 0;
+                padding-left: 10px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+            div#main-container div.card-container p{
+                margin: 0;
+                padding-left: 10px;
+            }
+
+    /* BROWSE */
+    div#main-container nav{
+        width: 80%;
+        margin: 1rem auto 3rem auto;
+    }
+        div#main-container nav form div.main-search{
+            display: inline-block;
+            width: 89%;
+            text-align: start;
+        }
+            div#main-container nav form div.main-search div.search-bar-container{
+                width: 100%;
+                display: inline-block;
+                border: 2px solid grey;
+                padding: 0.5rem;
+                border-radius: 0.5rem;
+            }
+                div#main-container nav form div.main-search div.search-bar-container input{
+                    width: 100%;
+                    outline: none;
+                    border: none;
+                    background: transparent;
+                    color: grey;
+                }
+            div#main-container nav form div.main-search div.selects-container{
+                display: inline-block;
+                color: white;
+                width: 16%;
+                text-align: start;
+                margin-top: 1rem;
+                padding-right: 1rem;
+            }
+                div#main-container nav form div.main-search div.selects-container select{
+                    width: 100%;
+                    background: transparent;
+                    color: grey;
+                    border-radius: 0.4rem;
+                }
+                div#main-container nav form div.main-search div.selects-container select:hover{
+                    color: white;
+                    background-color: grey;
+                    transition: 0.1s;
+                }
+                div#main-container nav form div.main-search div.selects-container p{
+                    margin: 0;
+                }
+        div#main-container nav form div.search-button{
+            display: inline-block;
+            width: 9%;
+            text-align: center;
+            vertical-align: top;
+        }
+            div#main-container nav form div.search-button input{
+                width: 100%;
+                background: transparent;
+                border: 2px solid grey;
+                border-radius: 0.5rem;
+                padding: 0.5rem;
+                color: grey;
+                font-weight: 500;
+            }
+            div#main-container nav form div.search-button input:hover{
+                border: 2px solid white;
+                color: white;
+                transition: 0.5s;
+            }
+
+    /* MOVIE INFO */
+    div#main-container div.movie-info{
+        text-align: start;
+        color: white;
+        margin-top: 50px;
+    }   
+        div#main-container div.movie-info div.movie-info-logo{
+            display: inline-block;
+            vertical-align: top;
+            width: 30%;
+            height: 400px;
+            text-align: end;
+            padding-right: 50px;
+        }
+            div#main-container div.movie-info div.movie-info-logo div.movie-info-logo-cont{
+                position: relative;
+                height: 100%;
+                width: 268px;
+                margin-left: auto;
+            }
+            div#main-container div.movie-info div.movie-info-logo div.movie-info-logo-cont img{
+                border: 4px solid white;
+                border-radius: 5px;
+                object-fit: contain;
+                height: 100%;
+            } 
+            div#main-container div.movie-info div.movie-info-logo div#bookmark-sign{
+                height: 100%;
+                width: 100%;
+                clip-path: polygon(5% 0%, 5% 13%, 11% 8%, 17% 13%, 17% 0%);
+                position: absolute;
+                top: 2px;
+                z-index: 1; 
+            }
+            div#main-container div.movie-info div.movie-info-logo div#bookmark-sign:hover{
+                cursor: pointer;
+            }
+            div#main-container div.movie-info div.movie-info-logo div.bookmarked{
+                background-color: lightgreen;
+            }
+            div#main-container div.movie-info div.movie-info-logo div.bookmark{
+                background-color: grey;
+            }
+        div#main-container div.movie-info div.movie-info-details{
+            display: inline-block;
+            text-align: start;
+            width: 35%;
+        }
+            div#main-container div.movie-info div.movie-info-details div.downloads-available p{
+                display: inline-block;
+            }
+            div#main-container div.movie-info div.movie-info-details div.downloads-available a p{
+                border: 1px solid grey;
+                display: inline-block;
+                padding: 0.2rem 0.5rem;
+                border-radius: 5px;
+                color: white;
+            }
+    div#main-container div.movie-summary{
+        text-align: start;
+        width: 90%;
+        color: white;
+        margin: 50px auto;
+    }
+        div#main-container div.movie-summary div.movie-plot{
+            display: inline-block;
+            width: 59%;
+            vertical-align: top;
+        }
+        div#main-container div.movie-summary div.movie-cast{
+            display: inline-block;
+            width: 39%;
+            margin-left: 10px;
+        }
+            div#main-container div.movie-summary div.movie-cast div.movie-cast-details{
+                padding: 0.5rem;
+                border-bottom: 1px solid grey;
+            }
+                div#main-container div.movie-summary div.movie-cast div.movie-cast-details img{
+                    border: 2px solid white;
+                    border-radius: 2rem;
+                    width: 50px;
+                    height: 50px;
+                    display: inline-block;
+                }
+                div#main-container div.movie-summary div.movie-cast div.movie-cast-details p{
+                    display: inline-block;
+                    font-weight: 500;
+                    font-size: 0.8rem;
+                }
+                    div#main-container div.movie-summary div.movie-cast div.movie-cast-details p a{
+                        text-decoration: none;
+                        color: grey;
+                    }
+    /* Bookmark */
+    div#main-container div#bookmark-container{
+        margin-top: 25px;
+    }
+        div#main-container div#bookmark-container h3{
+            color: grey;
+        }

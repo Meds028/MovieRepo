@@ -1,0 +1,172 @@
+
+<head>
+    <title>Browse</title>
+    <script>
+        $(document).ready(function() {
+            let urlParams = new URLSearchParams(window.location.search);
+            let currentPage = parseInt(urlParams.get('page')) || 1;
+            
+            $('#filter-button').click(function() {
+                let quality = $('#input-quality').val();
+                let genre = $('#input-genre').val();
+                let rating = $('#input-rating').val();
+                let order = $('#input-order_by').val();
+                let term = $('#input-term').val();
+        
+                if (!term) {
+                    term = "_";
+                }
+        
+                let baseUrl = '/browse/filter/' + quality + '/' + genre + '/' + rating + '/' + order + '/' + term;
+        
+                window.location.href = baseUrl + '?page=1';
+            });
+        
+            $('#page-next-btn').click(function(e) {
+                e.preventDefault();
+                currentPage++;
+                updateUrl(currentPage);
+            });
+        
+            $('#page-previous-btn').click(function(e) {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    updateUrl(currentPage);
+                }
+            });
+        
+            function updateUrl(page) {
+                urlParams.set('page', page);
+                let newUrl = window.location.origin + window.location.pathname + '?' + urlParams.toString();
+                window.location.href = newUrl;
+            }
+        });
+    </script>
+</head>
+
+<% if current_user.present? %>
+    <%= render partial: "shared/header_user" %>
+<% else %>
+    <%= render partial: "shared/header" %>
+<% end %>
+
+<div id="main-container">
+    <nav>
+        <form>            
+            <div class="main-search">
+                <div class="search-bar-container">
+                    <input type="text" placeholder="Search" name="movie[term]" id="input-term">
+                </div>
+                <div class="selects-container">
+                    <p>Quality:</p>
+                    <select id="input-quality" name="movie[quality]">
+                        <option value="all">All</option>
+                        <option value="480p">480p</option>
+                        <option value="720p">720p</option>
+                        <option value="1080p">1080p</option>
+                        <option value="1080p.x265">1080p.x265</option>
+                        <option value="2160p">2160p</option>
+                        <option value="3D">3D</option>
+                    </select>
+                </div>
+                <div class="selects-container">
+                    <p>Genre:</p>
+                    <select name="movie[genre]" id="input-genre">
+                        <option value="all">All</option>
+                        <option value="action">Action</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="animation">Animation</option>
+                        <option value="biography">Biography</option>
+                        <option value="comedy">Comedy</option>
+                        <option value="crime">Crime</option>
+                        <option value="documentary">Documentary</option>
+                        <option value="drama">Drama</option>
+                        <option value="family">Family</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="film-noir">Film-Noir</option>
+                        <option value="game-show">Game-Show</option>
+                        <option value="history">History</option>
+                        <option value="horror">Horror</option>
+                        <option value="music">Music</option>
+                        <option value="musical">Musical</option>
+                        <option value="mystery">Mystery</option>
+                        <option value="news">News</option>
+                        <option value="reality-tv">Reality-TV</option>
+                        <option value="romance">Romance</option>
+                        <option value="sci-fi">Sci-Fi</option>
+                        <option value="sport">Sport</option>
+                        <option value="talk-show">Talk-Show</option>
+                        <option value="thriller">Thriller</option>
+                        <option value="war">War</option>
+                        <option value="western">Western</option>
+                    </select>
+                </div>
+                <div class="selects-container">
+                    <p>Rating:</p>
+                        <select name="movie[rating]" id="input-rating">
+                            <option value="0">All</option>
+                            <option value="9">9+</option>
+                            <option value="8">8+</option>
+                            <option value="7">7+</option>
+                            <option value="6">6+</option>
+                            <option value="5">5+</option>
+                            <option value="4">4+</option>
+                            <option value="3">3+</option>
+                            <option value="2">2+</option>
+                            <option value="1">1+</option>
+                    </select>
+                </div>
+                <div class="selects-container selects-container-last">
+                    <p>Order By:</p>
+                    <select name="movie[order_by]" id="input-order_by">
+                        <option value="latest">Latest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="seeds">Seeds</option>
+                        <option value="peers">Peers</option>
+                        <option value="year">Year</option>
+                        <option value="popular">Popular</option>
+                        <option value="rating">IMDb Rating</option>
+                        <option value="alphabetical">Alphabetical</option>
+                    </select>
+                </div>
+            </div>
+            <div class="search-button">
+                <input type="button" value="Search" id="filter-button">
+            </div>
+        </form>
+    </nav>
+
+    <div id="movies-container">
+<% @movies.each do |movie| %>
+        <div class="card-container">
+            <a href="<%= movie_path(movie['id'], movie['title'].parameterize) %>"><img src="<%= movie['large_cover_image'] %>" alt="<%= movie['title'] %> poster"></a>
+            <a href="<%= movie_path(movie['id'], movie['title'].parameterize) %>"><h5><%= movie["title"] %></h5></a>
+            <p><%= movie["year"] %></p>
+        </div>
+<% end %>
+    </div>
+</div>
+
+
+<% page_number = params[:page].to_i %>
+<% previous_number = page_number - 1 %>
+<% next_number = page_number + 1 %>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a class="page-link" href="" id="page-previous-btn">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#"><%= previous_number %></a></li>
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#"><%= page_number %></a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#"><%= next_number %></a></li>
+        <li class="page-item">
+            <a class="page-link" href="" id="page-next-btn">Next</a>
+        </li>
+    </ul>
+</nav>
+
+<%= render partial: "shared/footer" %>

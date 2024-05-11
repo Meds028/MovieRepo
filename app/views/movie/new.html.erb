@@ -1,0 +1,100 @@
+<head>
+    <title>Movie Info</title>
+    <script>
+        $(document).ready(function() {
+            $('#bookmark-sign').click(function(event) {
+                window.location.href = "<%= bookmarked_path(@movies['id'], @movies['title'].parameterize) %>";
+            });
+
+            var flashNotice = $('#flash-notice');
+            if (flashNotice.length) {
+                setTimeout(function() {
+                    flashNotice.fadeOut();
+                }, 3000);
+            }
+        });
+    </script>
+</head>
+
+<% if current_user.present? %>
+    <%= render partial: "shared/header_user" %>
+<% else %>
+    <%= render partial: "shared/header" %>
+<% end %>
+
+<div id="main-container">
+            <% if flash[:alert].present? %>
+                <div class="alert alert-danger">
+                    <p><%= flash[:alert] %></p>
+                </div>
+            <% end %>
+
+            <% if flash[:notice].present? %>
+                <div class="alert alert-success" id="flash-notice">
+                    <p><%= flash[:notice] %></p>
+                </div>
+            <% end %>
+
+    <div class="movie-info">
+        <div class="movie-info-logo">
+            <div class="movie-info-logo-cont">
+<% if !current_user.present? %>
+<%  else %>
+<%      if @bookmarked.present? %>
+                <div id="bookmark-sign" class="bookmarked"></div>
+<%      else %>
+                <div id="bookmark-sign" class="bookmark"></div>
+<%      end %>
+<%  end %>
+                <img src="<%= @movies['large_cover_image'] %>" alt="movie poster">
+            </div>
+                
+        </div>
+        <div class="movie-info-details">
+            <h1><%= @movies['title'] %></h1>
+            <h5><%= @movies['year'] %></h5>
+<% genre_list = @movies['genres'].join(" / ") %>
+            <h5><%= genre_list %></h5>
+            <div class="downloads-available">
+                <p>Available in: </p>
+<% @movies['torrents'].each do |torrent| %>
+                <a href="<%= torrent['url'] %>"><p><%= torrent['quality'] %>.<%= torrent['type'] %></p></a>
+<% end %>
+            </div>
+            <p>IMDb Rating: <%= @movies['rating'] %></p>
+            <p>Runtime: <%= @movies['runtime'] %> mins.</p>
+        </div>
+    </div>
+    <div class="movie-summary">
+        <div class="movie-plot">
+            <h5>Plot summary</h5>
+            <p><%= @movies['description_intro'] %></p>
+        </div>
+        <div class="movie-cast">
+            <h5>Top cast</h5>
+<% if @movies['cast'].present? %>
+    <% @movies['cast'].each do |cast| %>
+            <div class="movie-cast-details">
+                <img src="<%= cast['url_small_image'] %>" alt="artist picture">
+                <p><a href=""><%= cast['name'] %></a> as <%= cast['character_name'] %></p>
+            </div>
+    <% end %>
+<% end %>
+        </div>
+    </div>
+
+    <div class="card-header">
+        <h4>Similar Movies</h4>
+    </div>
+    
+<% @similar_movies.each do |similar| %>
+    <div class="card-container">
+        <a href="<%= movie_path(similar['id'], similar['title'].parameterize) %>"><img src="<%= similar['medium_cover_image'] %>" alt="<%= similar['title'] %> poster"></a>
+        <a href=""><h5><%= similar['title'] %></h5></a>
+        <p><%= similar['year'] %></h5></p>
+    </div>
+<% end %>
+    
+</div>
+
+<%= render partial: "shared/footer" %>

@@ -1,0 +1,43 @@
+
+<head>
+    <title>Browse</title>
+    <script>
+        $(document).ready(function() {
+            let html_str = "";
+            <% @bookmarks.each do |movie| %>
+                $.get("https://yts.mx/api/v2/movie_details.json?movie_id=<%= movie.movie %>", function(res){
+                    let movieId = res.data.movie.id;
+                    let movieTitle = res.data.movie.title.toLowerCase().replace(/\s+/g, '-').replace(/:/g, '').replace(/-+/g, '-');
+                    let parameterizedTitle = encodeURIComponent(movieTitle);
+                    let moviePath = `/movie/${movieId}/${parameterizedTitle}`;
+                    let removePath = `/bookmarks/${movieId}`;
+
+                    html_str += "<div class='card-container'>";
+                    html_str += `<a href='${moviePath}'><img src='${res.data.movie.large_cover_image}' alt='${movieTitle} poster'></a>`;                    
+                    html_str += `<a href='${moviePath}'><h5>${res.data.movie.title}</h5></a>`;
+                    html_str += `<p>${res.data.movie.year}</p>`;
+                    html_str += `<div class="d-grid gap-2"><a class="btn btn-danger btn-sm" href="${removePath}" role="button">Remove</a></div>`;
+                    html_str += "</div>";
+                    
+                    $("#bookmark-container").html(html_str);
+                });
+            <% end %>
+        });
+    </script>
+</head>
+
+<% if current_user.present? %>
+    <%= render partial: "shared/header_user" %>
+<% else %>
+    <%= render partial: "shared/header" %>
+<% end %>
+
+<div id="main-container">
+    <div id="bookmark-container">
+<%  if !@bookmarks.present? %>
+    <h3>No bookmarks found</h3>
+<%  end %>
+    </div>
+</div>
+
+<%= render partial: "shared/footer" %>

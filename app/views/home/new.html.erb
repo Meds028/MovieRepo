@@ -1,0 +1,64 @@
+<head>
+    <title>Home</title>
+</head>
+
+<% if current_user.present? %>
+    <%= render partial: "shared/header_user" %>
+<% else %>
+    <%= render partial: "shared/header" %>
+<% end %>
+
+<div id="main-container">
+    <article>
+        <h1>Download YTS YIFY movies: HD smallest size</h1>
+        <div class="site-description">
+            <p>Welcome to MovieRepo, a revamped version of the popular website YTS.mx</p>
+        </div>
+    </article>
+
+    <div class="card-header">
+        <h4>Top Movies</h4>
+        <a href="<%= filter_path(quality: 'all', genre: 'all', rating: 0, order_by: 'like_count', term: '_', page: 1) %>"><h5>More</h5></a>
+    </div>
+
+    <div id="new-movies">
+<% @top_movies.each do |movie| %>
+        <div class="card-container">
+            <a href="<%= movie_path(movie['id'], movie['title'].parameterize) %>"><img src="<%= movie['large_cover_image'] %>" alt="<%= movie['title'] %> poster"></a>
+            <a href="#"><h5><%= movie["title"] %></h5></a>
+            <p><%= movie["year"] %></p>
+        </div>
+<% end %>
+
+    <div class="card-header">
+        <h4>New Uploads</h4>
+        <a href="<%= filter_path(quality: 'all', genre: 'all', rating: 0, order_by: 'date_added', term: '_', page: 1) %>"><h5>More</h5></a>
+    </div>
+
+    <div id="new-movies">
+<% @new_upload.each do |movie| %>
+        <div class="card-container">
+            <a href="<%= movie_path(movie['id'], movie['title'].parameterize) %>"><img src="<%= movie['large_cover_image'] %>" alt="<%= movie['title'] %> poster"></a>
+            <a href="#"><h5><%= movie["title"] %></h5></a>
+            <p><%= movie["year"] %></p>
+        </div>
+<% end %>
+    </div>
+
+    <div class="card-header">
+        <h4>Top Rating</h4>
+        <a href="<%= filter_path(quality: 'all', genre: 'all', rating: 0, order_by: 'rating', term: '_', page: 1) %>"><h5>More</h5></a>
+    </div>
+
+    <div id="new-movies">
+    <% @top_rating.each do |movie| %>
+        <div class="card-container">
+            <a href="<%= movie_path(movie['id'], movie['title'].parameterize) %>"><img src="<%= movie['large_cover_image'] %>" alt="<%= movie['title'] %> poster"></a>
+            <a href="#"><h5><%= movie["title"] %></h5></a>
+            <p><%= movie["year"] %></p>
+        </div>
+    <% end %>
+    </div>
+</div>
+
+<%= render partial: "shared/footer" %>

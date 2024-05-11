@@ -1,0 +1,60 @@
+<head>
+    <title>Register</title>
+</head>
+
+<% if current_user.present? %>
+    <%= render partial: "shared/header_user" %>
+<% else %>
+    <%= render partial: "shared/header" %>
+<% end %>
+
+<div id="main-container">
+    <main id="register-container">
+        <form action='<%= create_user_path %>' method='post'>
+            <% if flash[:alert].present? %>
+                <div class="alert alert-danger errors">
+                    <% flash[:alert].each do |error| %>
+                        <p><%= error %></p>
+                    <% end %>
+                </div>
+            <% end %>
+            <% if flash[:notice].present? %>
+                <div class="alert alert-success errors">
+                    <p><%= flash[:notice] %></p>
+                </div>
+            <% end %>
+
+            <div class="mb-3 row">
+                <label for="inputUsername" class="col-sm-3 col-form-label">Username</label>
+                <div class="col-sm-9 regiter-input-container">
+                    <input type="text" class="user-form" id="inputUsername" name="user[user_name]">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputEmail" class="col-sm-3 col-form-label">Email Address</label>
+                <div class="col-sm-9 regiter-input-container">
+                    <input type="text" class="user-form" id="inputEmail" name="user[email]">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
+                <div class="col-sm-9 regiter-input-container">
+                    <input type="password" class="user-form" id="inputPassword" name="user[password]">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputConfirmPassword" class="col-sm-3 col-form-label">Confirm Password</label>
+                <div class="col-sm-9 regiter-input-container">
+                    <input type="password" class="user-form" id="inputConfirmPassword" name="user[password_confirmation]">
+                </div>
+            </div>
+            <div class="d-grid gap-2 login">
+                <input class="btn btn-primary" type="submit" value="Register">
+            </div>
+            <a href="<%= login_path %>"><p>Already have Account?</p></a>
+        </form>
+    </main>
+</div>
+
+<%= render partial: "shared/footer" %>
+
